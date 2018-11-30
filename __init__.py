@@ -23,7 +23,7 @@ app = Flask(__name__) #create flask object
 app.secret_key = 'secret' #secret cookie key for flash!
 MAX_FILE_SIZE = 16 #size in MB
 
-app.root_path = os.getcwd()
+app.root_path = /home/nutsandservos/PDF_Splitter_web
 
 app.config['UPLOAD_FOLDER'] = str(app.root_path) + "/uploaded_files" #save path
 file_input_location = "/uploaded_files/" # passed to the script that manipulates the pdf 
@@ -110,8 +110,8 @@ def serve_file(output_filename):
 	#output_path = os.getcwd()+"/"+file_output_location #get the directory where the file is stored
 	#uploaded_filename = output_filename[4:]
 	#clear_uploaded_file(uploaded_filename) # delete the file that was uploaded
-	output_path = "/home/mario/Pictures/"
-	output_filename = "feels.png"
+	output_path = "/home/nutsandservos/served_files/"
+	output_filename = "OUTPUT1.pdf"
 	return send_from_directory(output_path, output_filename) #serve the processed file!
 
 
