@@ -2,7 +2,7 @@ from flask import Flask , render_template, request, flash, url_for, redirect, se
 from werkzeug.utils import secure_filename
 import werkzeug.exceptions
 import os
-import split_pdf # oh yea
+################import split_pdf # oh yea
 import subprocess
 
 #new import for logging
@@ -92,13 +92,13 @@ def upload_pdf():
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
 	
-	output_filename = split_pdf.process_pdf(filename, file_input_location, file_output_location) #make the magic happen
+	#output_filename = split_pdf.process_pdf(filename, file_input_location, file_output_location) #make the magic happen
 
-	if allowed_filename(output_filename):
-		return redirect(url_for('serve_file', output_filename=output_filename))
-	else:
-		flash(output_filename)
-		return redirect(url_for('unsuccesful'))
+	#if allowed_filename(output_filename):
+	#	return redirect(url_for('serve_file', output_filename=output_filename))
+	#else:
+	#	flash(output_filename)
+	return redirect(url_for('serve_file', output_filename="tupu"))
 
 
 	
@@ -107,9 +107,11 @@ def uploaded_file(filename):
 #serve the file with the new name as part of the url for
 @app.route('/fixed/<output_filename>')
 def serve_file(output_filename):
-	output_path = os.getcwd()+"/"+file_output_location #get the directory where the file is stored
-	uploaded_filename = output_filename[4:]
-	clear_uploaded_file(uploaded_filename) # delete the file that was uploaded
+	#output_path = os.getcwd()+"/"+file_output_location #get the directory where the file is stored
+	#uploaded_filename = output_filename[4:]
+	#clear_uploaded_file(uploaded_filename) # delete the file that was uploaded
+	output_path = "/home/mario/Pictures/"
+	output_filename = "feels.png"
 	return send_from_directory(output_path, output_filename) #serve the processed file!
 
 
