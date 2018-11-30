@@ -23,7 +23,7 @@ app = Flask(__name__) #create flask object
 app.secret_key = 'secret' #secret cookie key for flash!
 MAX_FILE_SIZE = 16 #size in MB
 
-app.root_path = /home/nutsandservos/PDF_Splitter_web
+app.root_path = "/home/nutsandservos/PDF_Splitter_web"
 
 app.config['UPLOAD_FOLDER'] = str(app.root_path) + "/uploaded_files" #save path
 file_input_location = "/uploaded_files/" # passed to the script that manipulates the pdf 
