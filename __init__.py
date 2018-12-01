@@ -2,7 +2,7 @@ from flask import Flask , render_template, request, flash, url_for, redirect, se
 from werkzeug.utils import secure_filename
 import werkzeug.exceptions
 import os
-################import split_pdf # oh yea
+import split_pdf # oh yea
 import subprocess
 
 #new import for logging
@@ -23,8 +23,8 @@ app = Flask(__name__) #create flask object
 app.secret_key = 'secret' #secret cookie key for flash!
 MAX_FILE_SIZE = 16 #size in MB
 
-app.root_path = "/home/nutsandservos/PDF_Splitter_web"
-#app.root_path  ="/home/mario/PDF_Splitter_web"
+#app.root_path = "/home/nutsandservos/PDF_Splitter_web"
+app.root_path  ="/home/mario/PDF_Splitter_web"
 
 app.config['UPLOAD_FOLDER'] = str(app.root_path) + "/uploaded_files" #save path
 file_input_location = "/uploaded_files/" # passed to the script that manipulates the pdf 
@@ -79,7 +79,6 @@ def upload_pdf():
 		else:
 			flash("Failed to upload")
 			return redirect(url_for('unsuccesful'))
-
 	return render_template('upload.html') # if not a post request, show the html for submitting the file
 
 
@@ -107,8 +106,8 @@ def serve_file(output_filename):
 	#uploaded_filename = output_filename[4:]
 	#clear_uploaded_file(uploaded_filename) # delete the file that was uploaded
 	
-	output_path = "/home/nutsandservos/PDF_Splitter_web/example_inout"
-	#output_path = "/home/mario/PDF_Splitter_web/example_inout"
+	#output_path = "/home/nutsandservos/PDF_Splitter_web/example_inout"
+	output_path = "/home/mario/PDF_Splitter_web/example_inout"
 	output_filename = "OUTPUT1.pdf"
 	return send_from_directory(output_path, output_filename) #serve the processed file!
 
