@@ -24,6 +24,7 @@ app.secret_key = 'secret' #secret cookie key for flash!
 MAX_FILE_SIZE = 16 #size in MB
 
 app.root_path = "/home/nutsandservos/PDF_Splitter_web"
+#app.root_path  ="/home/mario/PDF_Splitter_web"
 
 app.config['UPLOAD_FOLDER'] = str(app.root_path) + "/uploaded_files" #save path
 file_input_location = "/uploaded_files/" # passed to the script that manipulates the pdf 
@@ -66,13 +67,8 @@ def upload_pdf():
 			pdf_file = request.files['pdf']
 			if not pdf_file.filename == '':
 				if pdf_file and allowed_filename(pdf_file.filename):
-					filename = secure_filename(pdf_file.filename) # make sure the filename is not dangerous
-					#debug
-					#pdf_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))# save the file!				
-
-					#PRODUCTION
-					#production_path = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'])
-					pdf_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename)) #****************************************
+					filename = secure_filename(pdf_file.filename) 
+					pdf_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 					return redirect(url_for('uploaded_file',filename=filename))	
 				else:
 					flash("Only PDF's allowed ;)")
@@ -98,7 +94,7 @@ def uploaded_file(filename):
 	#	return redirect(url_for('serve_file', output_filename=output_filename))
 	#else:
 	#	flash(output_filename)
-	return redirect(url_for('serve_file', output_filename="tupu"))
+	return redirect(url_for('serve_file', output_filename="OUTPUT1.pdf"))
 
 
 	
@@ -110,7 +106,9 @@ def serve_file(output_filename):
 	#output_path = os.getcwd()+"/"+file_output_location #get the directory where the file is stored
 	#uploaded_filename = output_filename[4:]
 	#clear_uploaded_file(uploaded_filename) # delete the file that was uploaded
-	output_path = "/home/nutsandservos/served_files/"
+	
+	output_path = "/home/nutsandservos/PDF_Splitter_web/example_inout"
+	#output_path = "/home/mario/PDF_Splitter_web/example_inout"
 	output_filename = "OUTPUT1.pdf"
 	return send_from_directory(output_path, output_filename) #serve the processed file!
 
@@ -131,7 +129,6 @@ def error():
 
 @app.after_request
 def after_request(response):
-
 	if response.status_code != 500:
 		ts = strftime('[%Y-%b-%d %H:%M]')
 		logger.error(ts+" "+request.remote_addr+" "+request.method
